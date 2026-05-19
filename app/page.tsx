@@ -1,65 +1,122 @@
-import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { Plus, List, CircleEllipsis, Check, ListChecks, Trash2, SquarePen, Sigma } from 'lucide-react';
+import { Badge } from "@/components/ui/badge";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
-export default function Home() {
+const Home = () => {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className="w-full h-screen bg-gray-100 flex justify-center items-center">
+      <Card className="w-lg">
+        <CardHeader className="flex gap-2">
+          <Input placeholder="Adicionar Tarefa" />
+          <Button className="cursor-pointer"> <Plus /> Cadastrar</Button>
+
+        </CardHeader>
+
+        <CardContent>
+
+          <Separator className="mb-4" />
+
+          <div className="flex gap-2">
+            <Badge className="cursor-pointer" variant="default"><List></List>Todas</Badge>
+            <Badge className="cursor-pointer" variant="outline"><CircleEllipsis></CircleEllipsis>Não finalizadas</Badge>
+            <Badge className="cursor-pointer" variant="outline"><Check></Check>Concluidas</Badge>
+          </div>
+
+          <div className="mt-4 border-b-1">
+
+            <div className="h-14 flex justify-between items-center border-t-1">
+              <div className="w-1 h-full bg-amber-400"></div>
+              <p className="flex-1 px-2 text-sm">Estudar React</p>
+
+              <div className="flex gap-2 items-center">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <SquarePen size={16} className="cursor-pointer" />
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Editar Tarefa</DialogTitle>
+                    </DialogHeader>
+
+                    <div className="flex gap-2">
+                      <Input placeholder="Editar tarefa" />
+                      <Button className="cursor-pointer">Editar</Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+                <Trash2 size={16} className="cursor-pointer" />
+              </div>
+            </div>
+
+
+          </div>
+
+          <div className="flex justify-between mt-4">
+            <div className="flex gap-2 items-center">
+              <ListChecks size={18} />
+              <p className="text-xs"> Tarefas concluídas(3/3)</p>
+            </div>
+
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button className="text-xs h-7 cursor-pointer" variant="outline"><Trash2 />Limpar tarefas concluídas</Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Tem certeza que deseja excluir x tarefa?</AlertDialogTitle>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogAction>Sim</AlertDialogAction>
+                  <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+
+          </div>
+
+          <div className="h-2 w-full bg-gray-100 mt-4 rounded-md">
+            <div className="h-full bg-amber-600 rounded-md" style={{ width: "50%" }}></div>
+          </div>
+
+          <div className="flex justify-end items-center mt-2 gap-2">
+            <Sigma size={18} />
+            <p className="text-xs">3 tarefas no total</p>
+          </div>
+
+
+
+
+
+
+
+        </CardContent>
+
+
+      </Card>
+    </main>
   );
 }
+
+export default Home;
